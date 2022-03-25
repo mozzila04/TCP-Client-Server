@@ -22,7 +22,7 @@ public class ChatClientGUI {
     private static JScrollPane scrollPane = new JScrollPane();
     private static JLabel userOnline = new JLabel(); // lonline
     public static JList jListOnline = new JList(); // jlonline
-    private static JScrollPane scrollPaneOnline = new JScrollPane();
+    static JScrollPane scrollPaneOnline = new JScrollPane();
     private static JLabel labelLoggedInAs = new JLabel();
     private static JLabel labelLoggedInasBox = new JLabel();
 
@@ -58,7 +58,6 @@ public class ChatClientGUI {
             textAreaConversation.append("You are connected to host  : " + 1234 + " \n");
 
             printWriter.flush();
-
             Thread thread = new Thread(aChatClient);
             thread.start();
 

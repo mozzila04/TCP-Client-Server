@@ -2,23 +2,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class ChatServer {
     public static ArrayList<Socket> connectionArray = new ArrayList<Socket>();
     public static ArrayList<String> onlineUsers = new ArrayList<String>();
-   // private static Set<String> onlineUsers = new HashSet<>();
 
     public static void main(String[] args) throws IOException {
-        //  ExecutorService pool = Executors.newFixedThreadPool(500);
 
         try {
             ServerSocket serverSocket = new ServerSocket(1234);
             System.out.println("Server is online, waiting for connections ");
 
             while (true) {
-                //   pool.execute(new ChatServerReturn(serverSocket.accept()));
                 Socket socket = serverSocket.accept();
                 connectionArray.add(socket);
                 addUsername(socket);
@@ -26,10 +24,6 @@ public class ChatServer {
                 ChatServerReturn dialogue = new ChatServerReturn(socket);
                 Thread X = new Thread(dialogue);
                 X.start();
-                // takes the last person that joined and prints it
-                String lastJoined = onlineUsers.get(onlineUsers.size() - 1);
-                System.out.println("User " + lastJoined + " connected from " + socket.getLocalAddress().getHostName());
-
             }
 
         } catch (IOException e) {
@@ -37,25 +31,23 @@ public class ChatServer {
         }
     }
 
-    public Object getLastElement(final Collection c) {
-        final Iterator itr = c.iterator();
-        Object lastElement = itr.next();
-        while (itr.hasNext()) {
-            lastElement = itr.next();
-        }
-        return lastElement;
-    }
-
     public static void addUsername(Socket thread) throws IOException {
         Scanner scanner = new Scanner(thread.getInputStream());
         String userName = scanner.nextLine();
         onlineUsers.add(userName);
-
+        String coordinator;
         for (int i = 1; i <= ChatServer.connectionArray.size(); i++) {
             Socket temporarySocket = ChatServer.connectionArray.get(i - 1);
             PrintWriter printWriter = new PrintWriter(temporarySocket.getOutputStream());
             printWriter.println("#?!" + onlineUsers);
-            printWriter.flush();
+            if (onlineUsers.size() == 0){
+                coordinator = userName;
+                System.out.println(coordinator);
+            }else{
+                printWriter.println(userName + " has connected from " + temporarySocket.getLocalAddress().getHostName() );
+                printWriter.flush();
+            }
+
         }
     }
 }
