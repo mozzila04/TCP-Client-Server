@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class ChatClient  implements Runnable{
@@ -60,7 +62,10 @@ public class ChatClient  implements Runnable{
         }
     }
     public void send(String message){
-        printWriter.println(ChatClientGUI.userName + ": " + message);
+        DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime time = LocalTime.now();
+
+        printWriter.println(time.format(hhmm) + "  "+ ChatClientGUI.userName + ": " + message);
         printWriter.flush();
         ChatClientGUI.textFieldMessage.setText("");
     }

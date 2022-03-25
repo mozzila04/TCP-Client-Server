@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class ChatClientGUI {
     private static ChatClient aChatClient;

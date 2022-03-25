@@ -2,13 +2,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class ChatServer {
     public static ArrayList<Socket> connectionArray = new ArrayList<Socket>();
     public static ArrayList<String> onlineUsers = new ArrayList<String>();
+   // private static Set<String> onlineUsers = new HashSet<>();
 
     public static void main(String[] args) throws IOException {
         //  ExecutorService pool = Executors.newFixedThreadPool(500);
@@ -35,6 +35,15 @@ public class ChatServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Object getLastElement(final Collection c) {
+        final Iterator itr = c.iterator();
+        Object lastElement = itr.next();
+        while (itr.hasNext()) {
+            lastElement = itr.next();
+        }
+        return lastElement;
     }
 
     public static void addUsername(Socket thread) throws IOException {
