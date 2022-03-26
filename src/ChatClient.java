@@ -33,21 +33,25 @@ public class ChatClient implements Runnable {
     }
 
     public void disconnect() throws IOException {
+
         printWriter.println(ChatClientGUI.userName + " has disconnected from the chat");
         printWriter.flush();
         JOptionPane.showMessageDialog(null, "You disconnected from the server");
+       //  need a method that will remove the userName that disconnected from the Jlistonline
+        // ChatClientGUI.jListOnline.remove();
         delete_user();
         ChatClientGUI.mainWindow.dispose();
-        System.exit(0);
     }
 
-    public void delete_user() {
-        ChatClientGUI.jListOnline.remove(ChatServer.onlineUsers.size()-1);
-        ChatServer.onlineUsers.remove(ChatServer.onlineUsers.size()-1);
-        ChatClientGUI.scrollPaneOnline.setViewportView(ChatClientGUI.jListOnline);
-        ChatClientGUI.mainWindow.getContentPane();
-
+    public static void delete_user() {
+        // doesn't work so far
+        // here it revalidates firstly the area
+        ChatClientGUI.jListOnline.revalidate();
+        ChatClientGUI.jListOnline.repaint();
+        ChatClientGUI.scrollPaneCHAT.revalidate();
+        ChatClientGUI.scrollPaneCHAT.repaint();
     }
+
 
     public void checkStream() {
         while (true) {

@@ -1,9 +1,6 @@
 import javax.swing.*;
-import java.awt.*;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class ChatClientGUI {
     private static ChatClient aChatClient;
@@ -19,8 +16,8 @@ public class ChatClientGUI {
     public static JTextField textFieldMessage = new JTextField(20);
     private static JLabel labelConversation = new JLabel();
     public static JTextArea textAreaConversation = new JTextArea();
-    private static JScrollPane scrollPane = new JScrollPane();
-    private static JLabel userOnline = new JLabel(); // lonline
+    public static JScrollPane scrollPaneCHAT = new JScrollPane();
+    private static JLabel userOnlineLABEL = new JLabel(); // lonline
     public static JList jListOnline = new JList(); // jlonline
     static JScrollPane scrollPaneOnline = new JScrollPane();
     private static JLabel labelLoggedInAs = new JLabel();
@@ -44,11 +41,6 @@ public class ChatClientGUI {
         try {
 
             Socket socket = new Socket("localhost", 1234);
-            // takes the last person that joined and prints it
-//            String lastJoined = ChatServer.onlineUsers.get(ChatServer.onlineUsers.size() -1);
-//            if(ChatServer.onlineUsers.size() > 1){
-//                textAreaConversation.append(lastJoined + " has joined the chat \n");
-//            }
             aChatClient = new ChatClient(socket);
 
             // adds the name to online list
@@ -71,6 +63,7 @@ public class ChatClientGUI {
     public static void initialize() {
         buttonSend.setEnabled(false);
         buttonDisconnect.setEnabled(false);
+
         buttonConnect.setEnabled(true);
     }
 
@@ -150,18 +143,18 @@ public class ChatClientGUI {
         textAreaConversation.setRows(5);
         textAreaConversation.setEditable(false);
 
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setViewportView(textAreaConversation);
-        mainWindow.getContentPane().add(scrollPane);
-        scrollPane.setBounds(25, 35, 450, 400);
+        scrollPaneCHAT.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneCHAT.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPaneCHAT.setViewportView(textAreaConversation);
+        mainWindow.getContentPane().add(scrollPaneCHAT);
+        scrollPaneCHAT.setBounds(25, 35, 450, 400);
 
 
-        userOnline.setHorizontalAlignment(SwingConstants.CENTER);
-        userOnline.setText("Users Online: ");
-        userOnline.setToolTipText("");
-        mainWindow.getContentPane().add(userOnline);
-        userOnline.setBounds(500, 65, 135, 20);
+        userOnlineLABEL.setHorizontalAlignment(SwingConstants.CENTER);
+        userOnlineLABEL.setText("Users Online: ");
+        userOnlineLABEL.setToolTipText("");
+        mainWindow.getContentPane().add(userOnlineLABEL);
+        userOnlineLABEL.setBounds(500, 65, 135, 20);
 
 
         jListOnline.setForeground(new java.awt.Color(0, 0, 255));

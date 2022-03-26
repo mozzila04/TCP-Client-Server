@@ -36,10 +36,8 @@ public class ChatServerReturn implements Runnable {
         try{
             try{
                 Scanner input = new Scanner(socket.getInputStream());
-                PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
                 while (true) {
                     checkConnection();
-
                     if (!input.hasNext()) {
                         return;
                     }
@@ -50,7 +48,6 @@ public class ChatServerReturn implements Runnable {
                         PrintWriter tempOut = new PrintWriter(tempSocket.getOutputStream());
                         tempOut.println(messageServ);
                         tempOut.flush();
-                        // System.out.println("Sent to : " + tempSocket.getLocalAddress().getHostName());
                     }
                 }
             } finally {
